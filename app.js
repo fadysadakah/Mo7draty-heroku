@@ -17,7 +17,6 @@ var cookieParser = require('cookie-parser')
 app.use(cookieParser());
 const pg = require('pg');
 var md5 = require('md5');
-var first_name2='';
 var image='';
 // #########################################################################################################################################################################################
 
@@ -32,17 +31,6 @@ const client = new pg.Client({
 
 client.connect();
 
-const client2 = new pg.Client({
-    user: 'teidrwobeixtbr',
-    password: 'a0b3c5b9951e160027ffff161c6a95d5e0849dda568d494377504d0cad6d7794',
-    database: 'dfmorpksdk0uhp',
-    port: 5432,
-    host: 'ec2-23-23-195-205.compute-1.amazonaws.com',
-    ssl: true
-});
-
-client2.connect();
-
 
 
 
@@ -50,7 +38,7 @@ client2.connect();
 
 app.get('/', function (req, res) {
 
-    const query = client.query("SELECT * FROM users WHERE email = 'fadysadakah.emh@gmail.com'", (err, RES) => {
+    client.query("SELECT * FROM users WHERE email = 'fadysadakah.emh@gmail.com'", function(err,RES)  {
         if (err) console.log(err.detail);
         if (RES.rows.length != 0) {
 
@@ -59,33 +47,36 @@ app.get('/', function (req, res) {
             var password = RES.rows[0].password;
              image = RES.rows[0].image;
 
-
-            // res.render("index", { name: first_name, image: image });
-
-
-        }
-
+            }
+            res.render("index", {image: image });
+            
+  
     })
 
-    const query2 = client2.query("SELECT * FROM users WHERE email = 'fadysadakah.emh@gmail.com'", (err, RES) => {
-        if (err) console.log('err.detail');
-
-        if (RES.rows.length != 0) {
-            console.log(RES)
-            first_name2 = RES.rows[0].first_name;
-            last_name2 = RES.rows[0].last_name;
-            var password2 = RES.rows[0].password;
-            var image2 = RES.rows[0].image;
-
-        }
-
-
-
-
-    })
-
-    res.render("index", { first_name2: first_name2, image: image });
+ 
 });
+
+// #########################################################################################################################################################################################
+
+
+app.get('/sign_up', function (req, res) {
+    res.render('sign_up')
+})
+
+
+
+// #########################################################################################################################################################################################
+app.post('/sign_up', function (req, res) {
+    
+    res.redirect('/')
+})
+
+
+
+
+
+
+
 
 
 // #########################################################################################################################################################################################

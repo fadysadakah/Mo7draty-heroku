@@ -1,4 +1,6 @@
 <%include partials/header.ejs%>
+<%include partials/navbar.ejs%>
+
 <style>
     #form_body {
         max-width: 500px;
@@ -32,6 +34,7 @@
 
     <div id="form_body">
         <div id="form">
+            <div class="alert alert-danger" role="alert"><%=max%></div>
             <form action="/sign_up" method="POST">
                 <div class="form-group">
                     <label for="first_name">First name</label>
@@ -41,6 +44,10 @@
                 <div class="form-group">
                     <label for="last_name">Last name</label>
                     <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="email">
                 </div>
 
                 <div class="form-group">
@@ -67,7 +74,11 @@
     inputs_id.forEach(function (i) {
         $('#' + i).focus(function () { $('label[for=' + i + ']').addClass('label_on_focus') })
         $('#' + i).focusout(function () { $('label[for=' + i + ']').removeClass('label_on_focus') })
-    })
+    });
+    if ($('.alert').text() == "account added") {
+        $('.alert').removeClass('alert-danger');
+        $('.alert').addClass('alert-info');
+    }
 
 
 </SCRIPT>

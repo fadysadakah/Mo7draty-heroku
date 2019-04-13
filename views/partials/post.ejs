@@ -1,0 +1,106 @@
+<style>
+    body {
+        background-color: #fafafa;
+    }
+
+    #post {
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px 0;
+
+    }
+
+    #post_body {
+        background-color: rgb(255, 194, 81);
+        width: 80%;
+        border-radius: 90px 90px 90px 90px;
+        padding: 20px 0;
+
+    }
+
+    .comment {
+        border-radius: 90px 90px 90px 90px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+
+        margin: 10px;
+        width: 50%;
+    }
+
+    .commentt {
+        border-radius: 90px 90px 90px 90px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+
+        margin: 10px;
+        width: 50%;
+    }
+
+    #add_post {
+        background-color: white;
+    }
+
+    #add_comment {
+        border-radius: 90px 90px 90px 90px;
+
+    }
+</style>
+
+
+
+<center>
+    <div id="post">
+        <div id="post_body">
+            <h3>HELLO THIS IS MY FIRST POST EVER</h3>
+        </div>
+        <div id="comments">
+
+
+        </div>
+        <div id="add_comment">
+            <input class="form-control commentt" type="text" id="add_post" placeholder="write a new post">
+            <button class="btn btn-sm btn-warning" id="add_comment" onClick="add()"> Add a comment</button>
+        </div>
+    </div>
+</center>
+<script>
+
+    function x() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var data = (this.response);
+                data = JSON.parse(data);
+                console.log(data[0]);
+                data.forEach(function (i) {
+                    $('#comments').append('<div class="comment"><h5>' + i.post + '</h5></div>');
+
+                })
+
+
+
+
+            }
+        };
+        xhttp.open("GET", "/get_data", true);
+        xhttp.send();
+    }
+    x();
+
+    function add() {
+        $("input").prop('disabled', true);
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var data = (this.responseText);
+
+
+                $('#comments').append('<div class="comment"><h5>' + data + '</h5></div>');
+                $("input").prop('disabled', false);
+                $("input").val('')
+
+            }
+        };
+        var haha = $("input").val()
+        xhttp.open("GET", "/ajax?comment="+haha, true);
+        xhttp.send();
+    }
+</script>

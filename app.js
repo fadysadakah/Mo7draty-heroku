@@ -17,7 +17,7 @@ var request_email;
 var request_password;
 var request_confirm_password;
 var s;
-var script = "" ;
+var script = "";
 // #########################################################################################################################################################################################
 const client = new pg.Client({
     user: 'vknjruhfiarkkd',
@@ -36,7 +36,7 @@ app.get('/', function (req, res) {
 });
 // #########################################################################################################################################################################################
 app.get('/sign_up', function (req, res) {
-    res.render('sign_up', { max: '', script: script})
+    res.render('sign_up', { max: '', script: script })
 })
 // #########################################################################################################################################################################################
 app.post('/sign_up', function (req, res) {
@@ -77,8 +77,28 @@ app.get('/privacy', function (req, res) {
 app.get('/terms', function (req, res) {
     res.render('terms')
 })
+app.get('/get_data', function (req, res) {
+    client.query("SELECT * FROM posts", function (err, result) {
+        if (err) {
+        } else {
+
+            res.send(result.rows);
+        }
+    })
+})
 // #########################################################################################################################################################################################
 
+app.get('/ajax', function (req, res) {
+    var a = req.query.comment;
+    console.log(a.split(''));
+    client.query("insert into posts (post) values ('" + a + "')", function (err, result) {
+        if (err) { } else {
+            res.render('index')
+
+        }
+    });
+    res.send(a)
+})
 app.get('*', function (req, res) {
     res.send('Page not found')
 })

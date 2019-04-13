@@ -4,7 +4,7 @@
 <style>
     #form_body {
         max-width: 500px;
-        margin: 50px auto;
+        margin: 150px auto;
         border: 1px solid #ced4da;
         border-radius: 7px;
 
@@ -65,7 +65,7 @@
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="checkbox">
-                    <label class="form-check-label" for="checkbox">I agree to <a href="/privacy">terms and conditions</a></label>
+                    <label class="form-check-label" for="checkbox">I agree to <a href="/terms">terms and conditions</a> and <a href="/privacy">privacy policy</a></label>
                 </div>
                 <button class="btn btn-primary btn-block">Sign up</button>
             </form>
@@ -73,7 +73,8 @@
     </div>
 </div>
 
-
+<%include partials/foot.ejs%>
+<%include partials/footer.ejs%>
 
 
 <SCRIPT>

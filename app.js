@@ -74,6 +74,9 @@ app.post('/sign_up', function (req, res) {
 app.get('/privacy', function (req, res) {
     res.render('privacy')
 })
+app.get('/terms', function (req, res) {
+    res.render('terms')
+})
 // #########################################################################################################################################################################################
 
 app.get('*', function (req, res) {
